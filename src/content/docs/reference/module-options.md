@@ -16,6 +16,9 @@ description: Everything AirnestModule.forRoot accepts.
 | `worker.concurrency` | `4` | Tasks running at once in this process. |
 | `worker.pollMs` | `500` | Interval between claims when the worker has free slots. |
 | `worker.leaseMs` | `30000` | Lease on a claimed task, renewed every third of it. |
+| `pools` | `{}` | `{ name: slots }` or `{ name: { slots, description } }`, see [Pools](../../guides/pools/). |
+| `retention.days` | none | Delete finished runs older than this, with their tasks, attempts, outputs and logs. Checked hourly by the scheduler. |
+| `enhancers` | `false` | Run guards, interceptors and filters around tasks, see [Guards and interceptors](../../guides/guards-and-interceptors/). |
 | `shutdownTimeoutMs` | `30000` | How long close waits for running tasks. |
 | `clock` | `() => new Date()` | Time source, for tests. |
 

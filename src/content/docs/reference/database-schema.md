@@ -14,8 +14,11 @@ Everything lives in a PostgreSQL schema named `airnest`, created by the migratio
 | `task_instance` | One row per task of each run: state, try number, current attempt id, lease, retry time, reason, last error. |
 | `task_attempt` | One row per finished attempt: worker, outcome, error, start and end. |
 | `xcom` | Task outputs as JSON, keyed by run, task and key. |
+| `pool` | Declared pools and their slots. |
+| `task_log` | Log lines per run, task and attempt, ordered by a sequence. |
 
 All tables carry `created_at`, and the mutable ones `updated_at`. Partial indexes keep the hot queries (queued tasks,
 running leases, due retries, active runs) small regardless of history size.
 
-Retention is not automatic yet. Deleting old rows from `dag_run` cascades to its task instances, attempts and outputs.
+With `retention: { days }`, the scheduler deletes finished runs older than that every hour. Deleting a row from
+`dag_run` cascades to its task instances, attempts, outputs and logs.

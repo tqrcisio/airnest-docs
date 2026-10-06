@@ -16,11 +16,17 @@ airnest is young. The packages are at `0.0.1` and the API may still change.
 - A control plane: HTTP API for DAGs, runs and attempts, pause and trigger, and a manifest for admin UIs.
 - An admin UI built on that manifest: DAG list, run grid, graph, attempts and a trigger form generated from params.
 
+- Rerunning failed tasks, a task with its downstream or a whole run, and backfills over a range.
+- Params validated against a JSON Schema, with defaults, on every kind of run.
+- Pools that cap concurrent tasks on an external resource.
+- Task logs, stored per attempt and followed live in the admin.
+- Retention of run history.
+- Opt-in guards, interceptors and filters around tasks.
+
 ## Next
 
-1. Stream task logs to the admin.
-2. Pools to cap concurrent access to an external resource.
-3. Clearing a run or a task to execute it again, and backfills over a date range.
-4. Params with a schema, validated on trigger and rendered as a form.
-5. Guards and interceptors around tasks.
-6. Retention of run history.
+1. Publish the packages to npm.
+2. Stream logs and run updates over SSE instead of polling.
+3. Assets: schedule a DAG when another one updates the data it reads.
+4. Deferrable tasks that free their slot while waiting on something external.
+5. Deadlines with callbacks.

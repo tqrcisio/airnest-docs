@@ -73,6 +73,11 @@ export default defineConfig({
           label: 'Guides',
           items: [
             { label: 'Triggering runs', slug: 'guides/triggering-runs' },
+            { label: 'Params', slug: 'guides/params' },
+            { label: 'Rerunning and backfilling', slug: 'guides/operating-runs' },
+            { label: 'Pools', slug: 'guides/pools' },
+            { label: 'Task logs', slug: 'guides/logs' },
+            { label: 'Guards and interceptors', slug: 'guides/guards-and-interceptors' },
             { label: 'Scheduler and workers', slug: 'guides/scheduler-and-workers' },
             { label: 'Testing DAGs', slug: 'guides/testing' },
             { label: 'Control plane', slug: 'guides/control-plane' },

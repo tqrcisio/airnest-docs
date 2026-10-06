@@ -42,13 +42,18 @@ options from configuration.
 | `GET` | `/dags/:dagId` | One DAG, including its full definition. |
 | `GET` | `/dags/:dagId/runs?limit=25` | Latest runs with the state of every task (limit up to 200). |
 | `POST` | `/dags/:dagId/runs` | Trigger a manual run. Body: `{ params?, logicalDate? }`. |
+| `POST` | `/dags/:dagId/backfills` | Create runs for a range. Body: `{ from, to, params? }`. |
 | `POST` | `/dags/:dagId/pause` | Stop creating scheduled runs. Manual triggers still work. |
 | `POST` | `/dags/:dagId/unpause` | Resume the schedule. |
 | `GET` | `/runs/:runId` | One run with its tasks, reasons and last errors. |
 | `GET` | `/runs/:runId/tasks/:taskId/attempts` | Every attempt of a task: worker, outcome, error, start and end. |
+| `GET` | `/runs/:runId/tasks/:taskId/logs?after=0` | Log lines of a task after a sequence number. |
+| `POST` | `/runs/:runId/clear` | Rerun tasks. Body: `{ taskIds?, downstream?, onlyFailed? }`. |
+| `GET` | `/pools` | Pools with slots, running and queued tasks. |
 
 Errors follow Nest's HTTP exceptions: `404` for an unknown DAG, run or task, `409` when a manual run already exists for
-that logical date, `400` for a malformed body or run id.
+that logical date or a task to clear is still running, `400` for a malformed body, invalid params (one message per
+problem) or a backfill range that is reversed or too long.
 
 ## The manifest
 

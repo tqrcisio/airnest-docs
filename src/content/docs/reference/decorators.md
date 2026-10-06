@@ -14,7 +14,7 @@ description: '@Dag, @Task and the task parameter decorators.'
 | `catchup` | `boolean` | `false` | Create runs for every missed interval. |
 | `maxActiveRuns` | `number` | `16` | Queued plus running runs allowed at once. |
 | `tags` | `string[]` | `[]` | Free labels. |
-| `params` | `object` | none | Description of the params the DAG accepts. |
+| `params` | JSON Schema | none | What runs accept; validated with defaults. See [Params](../../guides/params/). |
 | `defaults` | task options | none | Applied to every task, overridden per task. |
 
 ## @Task(options)
@@ -28,7 +28,7 @@ description: '@Dag, @Task and the task parameter decorators.'
 | `retryBackoff` | `'fixed' \| 'exponential'` | `'fixed'` | |
 | `maxRetryDelayMs` | `number` | `86400000` | Cap for exponential backoff. |
 | `timeoutMs` | `number` | none | Bound for one attempt. |
-| `pool` | `string` | none | Reserved for pools, not enforced yet. |
+| `pool` | `string` | none | [Pool](../../guides/pools/) whose slots the task takes. |
 
 The task id is the method name.
 
@@ -42,6 +42,7 @@ The task id is the method name.
 | `@Params()` | the run's params object |
 | `@Params('name')` | one param |
 | `@Output('task')` | the return value of an upstream task |
+| `@TaskLog()` | the attempt's logger, see [Task logs](../../guides/logs/) |
 
 ## DagContext
 
@@ -55,6 +56,7 @@ type DagContext<TDag> = {
   dataInterval: { start: Date; end: Date };
   params: Record<string, unknown>;
   signal: AbortSignal;
+  logger: { log(message: string): void; warn(message: string): void; error(message: string): void };
   output<K extends TaskName<TDag>>(task: K): TaskOutput<TDag, K>;
 };
 ```

@@ -16,6 +16,18 @@ Creates a manual run and returns its id.
 Throws `RunAlreadyExistsError` when the DAG already has a run for that logical date, and an error when the DAG was
 never registered.
 
+Throws `InvalidParamsError` when params break the DAG's schema.
+
+## clear(runId, options?)
+
+Puts tasks of a run back to `pending` and returns the ids that were cleared. Options: `taskIds`, `downstream` (default
+`true`), `onlyFailed`, `clearedBy`. See [Rerunning and backfilling](../../guides/operating-runs/).
+
+## backfill(dagId, { from, to }, options?)
+
+Creates one `backfill` run per scheduled interval in the range and returns `{ created, skipped }`. Options: `params`,
+`triggeredBy`.
+
 ## runs(dagId, limit = 25)
 
 Latest runs first.

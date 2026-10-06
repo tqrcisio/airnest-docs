@@ -31,9 +31,9 @@ is in the past):
 
 ## maxActiveRuns
 
-At most `maxActiveRuns` runs of a DAG are queued or running at the same time (default 16). While the limit is reached,
-the scheduler creates nothing and checks again on the next tick, so a long catchup proceeds a few runs at a time. With
-`maxActiveRuns: 1`, runs are strictly sequential.
+At most `maxActiveRuns` runs of a DAG run at the same time (default 16), whether the scheduler, a manual trigger or a
+backfill created them; the others wait in `queued`. While the limit is reached the scheduler creates nothing new, so a
+long catchup proceeds a few runs at a time. With `maxActiveRuns: 1`, runs are strictly sequential.
 
 ## One run per logical date
 

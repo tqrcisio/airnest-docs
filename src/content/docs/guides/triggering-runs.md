@@ -24,8 +24,8 @@ export class DagsController {
 
 ## Parameters
 
-`params` is stored with the run and read by tasks through `@Params()` or `ctx.params`. Scheduled runs get `{}`, so give
-tasks a default for every param they read.
+`params` is stored with the run and read by tasks through `@Params()` or `ctx.params`. Declare a schema on the DAG to
+validate them and fill defaults, for scheduled runs too; see [Params](../params/).
 
 ## Rerunning a date
 
@@ -35,8 +35,8 @@ Pass `logicalDate` to create a manual run for a specific moment:
 await airnest.trigger('sales_daily', { logicalDate: new Date('2026-10-01T06:00:00Z') });
 ```
 
-If that DAG already has a run for that logical date, `trigger` throws `RunAlreadyExistsError`. Clearing an existing run
-to execute it again is on the [roadmap](../../roadmap/).
+If that DAG already has a run for that logical date, `trigger` throws `RunAlreadyExistsError`. To execute an existing
+run again, [clear it](../operating-runs/).
 
 ## Who triggered it
 
