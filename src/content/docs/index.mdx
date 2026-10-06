@@ -1,0 +1,53 @@
+---
+title: airnest
+description: Airflow-style DAG orchestration for NestJS and PostgreSQL.
+template: splash
+hero:
+  tagline: DAGs declared as NestJS providers, scheduled with Airflow's semantics, stored in the PostgreSQL you already run.
+  actions:
+    - text: Get started
+      link: /airnest-docs/start/getting-started/
+      icon: right-arrow
+    - text: GitHub
+      link: https://github.com/tqrcisio/airnest
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+```ts
+@Dag({ id: 'sales_daily', schedule: '0 3 * * *', timezone: 'America/Sao_Paulo', catchup: true })
+export class SalesDailyDag {
+  constructor(private readonly gateway: SalesGateway, private readonly warehouse: Warehouse) {}
+
+  @Task({ retries: 3, retryBackoff: 'exponential' })
+  extract(@DataInterval() interval: DataInterval) {
+    return this.gateway.fetch(interval);
+  }
+
+  @Task({ after: ['extract'] })
+  load(@Output('extract') sales: Sale[]) {
+    return this.warehouse.upsert(sales);
+  }
+}
+```
+
+<CardGrid>
+  <Card title="Nest all the way down" icon="puzzle">
+    A DAG is a provider. Tasks are methods. Dependencies come through the constructor, and a typo in `after` does not
+    compile.
+  </Card>
+  <Card title="Data intervals, not just cron" icon="seti:clock">
+    Every run owns a logical date and a data interval. Catchup walks missed intervals without exceeding
+    `maxActiveRuns`.
+  </Card>
+  <Card title="Only PostgreSQL" icon="seti:db">
+    Runs, tasks, leases and outputs live in one schema. Workers compete with `SKIP LOCKED`, so any number of replicas
+    can run side by side.
+  </Card>
+  <Card title="Safe under failure" icon="approve-check">
+    Every attempt has its own id, leases expire, and a worker that lost its lease can no longer write. Deploys in the
+    middle of a run are routine.
+  </Card>
+</CardGrid>
