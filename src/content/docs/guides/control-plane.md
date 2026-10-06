@@ -29,7 +29,8 @@ export class AppModule {}
 it (a global guard or middleware) so the request already carries the user. `resolveUser` fills `triggeredBy` on manual
 runs and `pausedBy` on paused DAGs.
 
-`path` is the prefix of every route (default `airnest`). Use `forRootAsync` with `path` next to `useFactory` to read the
+`path` is the prefix of every route (default `airnest`), and the [admin](../admin/) is served under `<path>/ui` unless
+you pass `ui: false`. Use `forRootAsync` with `path` next to `useFactory` to read the
 options from configuration.
 
 ## Routes

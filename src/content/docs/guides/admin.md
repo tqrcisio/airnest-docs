@@ -25,21 +25,27 @@ Views refresh every few seconds, so a run in progress updates on its own.
 
 ## Running it
 
-The admin expects the control plane under `/airnest` on the same origin. In development, Vite proxies that path to
+The admin ships inside `@airnest/control-plane` and is served by the same module, under `<path>/ui`:
+
+```ts
+AirnestControlPlaneModule.forRoot({ db, authorize, path: 'airnest' });
+// admin at /airnest/ui, API at /airnest
+```
+
+The page itself is public and holds no data: every call it makes goes through the API, which `authorize` protects. That
+is deliberate, because a browser navigating to the page cannot attach a bearer token. When your authorization relies on
+one, put the admin behind the same session or proxy that issues it. Pass `ui: false` to serve only the API.
+
+The module tells the page where the API lives, so changing `path` needs no rebuild.
+
+To work on the admin itself, run the demo backend and the Vite dev server, which proxies `/airnest` to
 `AIRNEST_API_TARGET` (default `http://localhost:3100`):
 
 ```bash
+pnpm build
 pnpm --filter @airnest/demo dev
 pnpm --filter @airnest/admin dev
 ```
 
 `apps/demo` is a Nest application with three sample DAGs, PGlite and the control plane, so the admin has history to show
 from the first minute.
-
-To serve the admin from your own application, build it with `AIRNEST_ADMIN_BASE` set to the path it will live under and
-`VITE_AIRNEST_API` pointing at the control plane, then serve `apps/admin/dist` as static files.
-
-:::caution
-The admin is not published as a package yet. Shipping it inside `@airnest/control-plane`, served from the same module,
-is on the roadmap.
-:::

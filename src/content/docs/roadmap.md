@@ -18,7 +18,7 @@ airnest is young. The packages are at `0.0.1` and the API may still change.
 
 ## Next
 
-1. Serve the admin from the control plane module, and stream task logs to it.
+1. Stream task logs to the admin.
 2. Pools to cap concurrent access to an external resource.
 3. Clearing a run or a task to execute it again, and backfills over a date range.
 4. Params with a schema, validated on trigger and rendered as a form.
