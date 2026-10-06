@@ -75,6 +75,7 @@ export default defineConfig({
             { label: 'Triggering runs', slug: 'guides/triggering-runs' },
             { label: 'Scheduler and workers', slug: 'guides/scheduler-and-workers' },
             { label: 'Testing DAGs', slug: 'guides/testing' },
+            { label: 'Control plane', slug: 'guides/control-plane' },
           ],
         },
         {
