@@ -15,7 +15,6 @@ airnest is young. The packages are at `0.0.1` and the API may still change.
 - Scheduler and worker in the same process or split, with graceful shutdown.
 - A control plane: HTTP API for DAGs, runs and attempts, pause and trigger, and a manifest for admin UIs.
 - An admin UI built on that manifest: DAG list, run grid, graph, attempts and a trigger form generated from params.
-
 - Rerunning failed tasks, a task with its downstream or a whole run, and backfills over a range.
 - Params validated against a JSON Schema, with defaults, on every kind of run.
 - Pools that cap concurrent tasks on an external resource.
