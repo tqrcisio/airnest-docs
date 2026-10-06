@@ -76,6 +76,7 @@ export default defineConfig({
             { label: 'Scheduler and workers', slug: 'guides/scheduler-and-workers' },
             { label: 'Testing DAGs', slug: 'guides/testing' },
             { label: 'Control plane', slug: 'guides/control-plane' },
+            { label: 'Admin', slug: 'guides/admin' },
           ],
         },
         {

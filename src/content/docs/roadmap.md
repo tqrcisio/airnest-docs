@@ -14,10 +14,11 @@ airnest is young. The packages are at `0.0.1` and the API may still change.
 - Versioned definitions, manual triggers with params, run history.
 - Scheduler and worker in the same process or split, with graceful shutdown.
 - A control plane: HTTP API for DAGs, runs and attempts, pause and trigger, and a manifest for admin UIs.
+- An admin UI built on that manifest: DAG list, run grid, graph, attempts and a trigger form generated from params.
 
 ## Next
 
-1. An admin UI generated from that manifest: run grid, graph, live logs, trigger form.
+1. Serve the admin from the control plane module, and stream task logs to it.
 2. Pools to cap concurrent access to an external resource.
 3. Clearing a run or a task to execute it again, and backfills over a date range.
 4. Params with a schema, validated on trigger and rendered as a form.
